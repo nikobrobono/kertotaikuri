@@ -1,0 +1,13 @@
+{
+  "name": "Kertotaikuri",
+  "short_name": "Kertotaikuri",
+  "description": "Nousujohteinen kertotaulupeli 0–10 kertotauluille",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f3ff",
+  "theme_color": "#6558d3",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
