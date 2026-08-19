@@ -10,6 +10,15 @@
 body { margin: 0; min-height: 100vh; min-height: 100dvh; background: radial-gradient(circle at top, #eee8ff, #fff9ef 65%); }
 button { font: inherit; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 #app { width: min(100%, 540px); min-height: 100dvh; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); }
+.login-screen { display: flex; flex-direction: column; justify-content: center; min-height: calc(100dvh - 48px); padding: 28px 22px; text-align: center; }
+.login-mascot { display: grid; place-items: center; width: 76px; height: 76px; margin: 0 auto 18px; border-radius: 25px; color: #ffd166; background: #6558d3; box-shadow: 0 14px 30px #51458b33; font-size: 2.5rem; }
+.login-eyebrow { margin: 0; color: #766bc2; font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.login-screen h1 { margin: 5px 0 24px; font-size: 2rem; }
+.login-form { padding: 22px; border: 1px solid #eee9fa; border-radius: 24px; background: #fff; box-shadow: 0 18px 50px #463c7820; text-align: left; }
+.login-form label { display: block; margin-bottom: 15px; color: #514879; font-size: .85rem; font-weight: 850; }
+.login-form input { width: 100%; min-height: 50px; margin-top: 6px; padding: 10px 13px; border: 2px solid #ded7ef; border-radius: 13px; color: #29234b; background: #fbfaff; font: inherit; font-size: 1rem; }
+.login-form input:focus { outline: 3px solid #6558d333; border-color: #6558d3; }
+.login-error { margin: -3px 0 14px; color: #a13750; font-size: .85rem; font-weight: 750; text-align: center; }
 .topbar { display: flex; justify-content: space-between; align-items: center; font-size: 1.18rem; }
 .topbar > div { display: flex; gap: 8px; align-items: center; }
 .logo { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; color: #fff; background: #6558d3; }
@@ -60,6 +69,7 @@ h1 { margin: 2px 0; font-size: 1.4rem; }
 .grownups { margin: 15px 6px 0; color: #777087; font-size: .82rem; }
 .grownups summary { cursor: pointer; text-align: center; }
 .grownups button { border: 1px solid #d7d0e6; border-radius: 9px; padding: 7px 10px; color: #776d87; background: #fff; }
+.grownups #logout { margin-left: 6px; }
 .reset-confirm { margin-top: 10px; padding: 12px; border-radius: 12px; color: #6f3340; background: #fff0f2; text-align: center; }
 .reset-confirm div { display: flex; justify-content: center; gap: 8px; margin-top: 9px; }
 .reset-confirm #confirmReset { color: #fff; border-color: #c84f68; background: #c84f68; font-weight: 800; }

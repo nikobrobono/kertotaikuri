@@ -2,6 +2,8 @@
 
 Kannustava, mobiiliystävällinen 0–10-kertotaulupeli. Peli etenee kuuden tason kautta helpoista ankkureista kaikkien kertotaulujen satunnaiseen harjoitteluun.
 
+Pelin kirjautumisruutu on vain kevyt pääsyeste. Tunnukset ovat staattisen verkkosovelluksen lähdekoodissa, joten sitä ei pidä käyttää luottamuksellisen tiedon suojaamiseen.
+
 ## Käynnistys
 
 ```bash

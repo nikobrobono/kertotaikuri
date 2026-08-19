@@ -5,7 +5,10 @@ import { finalePoints } from "./domain/finaleScoring.js";
 import { initialProgress, loadProgress, resetProgress, saveProgress } from "./data/progressStore.js";
 
 const app = document.querySelector("#app");
+const ACCESS = Object.freeze({ username: "eelin", password: "Väinö1" });
+const LOGIN_SESSION_KEY = "kertotaikuri-login-session";
 let progress = loadProgress();
+let loggedIn = sessionStorage.getItem(LOGIN_SESSION_KEY) === "active";
 let session;
 let question;
 let answer = "";
@@ -18,6 +21,38 @@ let resetArmed = false;
 let questionStartedAt = 0;
 
 const isFinale = () => progress.mode === "path" && progress.selectedLevel === LEVELS.length;
+
+function renderLogin(hasError = false) {
+  app.innerHTML = `
+    <section class="login-screen">
+      <div class="login-mascot">✦</div>
+      <p class="login-eyebrow">Tervetuloa Kertotaikuriin</p>
+      <h1>Kirjaudu pelaamaan</h1>
+      <form id="loginForm" class="login-form">
+        <label>Käyttäjänimi<input id="username" name="username" autocomplete="username" autocapitalize="none" required></label>
+        <label>Salasana<input id="password" name="password" type="password" autocomplete="current-password" required></label>
+        ${hasError ? `<p class="login-error" role="alert">Käyttäjänimi tai salasana ei ollut oikein.</p>` : ""}
+        <button class="primary" type="submit">Aloita peli →</button>
+      </form>
+    </section>`;
+  app.querySelector("#loginForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const username = app.querySelector("#username").value.trim();
+    const password = app.querySelector("#password").value;
+    if (username === ACCESS.username && password === ACCESS.password) {
+      sessionStorage.setItem(LOGIN_SESSION_KEY, "active");
+      loggedIn = true;
+      startGame();
+    } else {
+      renderLogin(true);
+    }
+  });
+}
+
+function startGame() {
+  newSession();
+  render();
+}
 
 function currentLesson() {
   if (progress.mode === "tables") {
@@ -250,6 +285,7 @@ function render() {
       <p>Paras vastausputki: <strong>${progress.bestStreak}</strong></p>
       <p>Vaikeat laskut: <strong>${hardest.length ? hardest.join(", ") : "ei vielä havaittu"}</strong></p>
       ${resetArmed ? `<div class="reset-confirm" role="alert"><strong>Nollataanko kaikki edistyminen?</strong><div><button id="cancelReset">Peruuta</button><button id="confirmReset">Kyllä, nollaa</button></div></div>` : `<button id="reset">Aloita alusta</button>`}
+      <button id="logout">Kirjaudu ulos</button>
     </details>
   `;
 
@@ -281,9 +317,14 @@ function render() {
     newSession();
     render();
   });
+  app.querySelector("#logout")?.addEventListener("click", () => {
+    sessionStorage.removeItem(LOGIN_SESSION_KEY);
+    loggedIn = false;
+    renderLogin();
+  });
 }
 
-newSession();
-render();
+if (loggedIn) startGame();
+else renderLogin();
 
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
