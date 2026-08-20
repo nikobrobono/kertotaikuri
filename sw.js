@@ -1,5 +1,5 @@
-const CACHE = "kertotaikuri-v3";
-const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon.svg", "./src/styles.css", "./src/main.js", "./src/domain/curriculum.js", "./src/domain/question.js", "./src/domain/hints.js", "./src/domain/finaleScoring.js", "./src/data/progressStore.js"];
+const CACHE = "kertotaikuri-v4";
+const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon.svg", "./src/styles.css", "./src/main.js", "./src/domain/curriculum.js", "./src/domain/question.js", "./src/domain/hints.js", "./src/domain/finaleScoring.js", "./src/domain/mastery.js", "./src/domain/dailyPractice.js", "./src/data/progressStore.js", "./src/data/progressBackup.js"];
 self.addEventListener("install", (event) => event.waitUntil(Promise.all([
   self.skipWaiting(),
   caches.open(CACHE).then((cache) => cache.addAll(ASSETS))

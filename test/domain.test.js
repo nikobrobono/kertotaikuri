@@ -36,6 +36,12 @@ test("heikosti osattu lasku saa suuremman painon", () => {
   assert.ok(difficultyWeight({ seen: 3, correct: 0, wrong: 3, lastResult: "wrong" }) > difficultyWeight({ seen: 3, correct: 3, wrong: 0, correctStreak: 3 }));
 });
 
+test("vastausajasta kertyy keskiarvo taitoluokitusta varten", () => {
+  let stats = recordFact({}, { key: "7x8" }, true, 4000);
+  stats = recordFact(stats, { key: "7x8" }, true, 2000);
+  assert.equal(stats["7x8"].avgResponseMs, 3000);
+});
+
 test("vaikeimmat laskut voidaan näyttää harjoitteluraportissa", () => {
   const facts = {
     "7x8": { seen: 4, correct: 1, wrong: 3, lastResult: "wrong" },

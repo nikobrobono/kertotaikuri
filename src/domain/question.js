@@ -37,9 +37,14 @@ export function createTableQuestion(table, askedKeys = [], factStats = {}, rando
   return createQuestion({ tables: [table] }, factStats, random, previousKey);
 }
 
-export function recordFact(stats, question, correct) {
+export function recordFact(stats, question, correct, responseMs) {
   const previous = stats[question.key] ?? { seen: 0, correct: 0, wrong: 0, correctStreak: 0 };
   const previousWrong = previous.wrong ?? Math.max(0, previous.seen - previous.correct);
+  const elapsed = Number(responseMs);
+  const previousAverage = Number(previous.avgResponseMs);
+  const avgResponseMs = Number.isFinite(elapsed) && elapsed >= 0
+    ? Math.round(((Number.isFinite(previousAverage) ? previousAverage * previous.seen : 0) + elapsed) / (previous.seen + 1))
+    : previous.avgResponseMs;
   return {
     ...stats,
     [question.key]: {
@@ -47,7 +52,8 @@ export function recordFact(stats, question, correct) {
       correct: previous.correct + (correct ? 1 : 0),
       wrong: previousWrong + (correct ? 0 : 1),
       correctStreak: correct ? (previous.correctStreak ?? 0) + 1 : 0,
-      lastResult: correct ? "correct" : "wrong"
+      lastResult: correct ? "correct" : "wrong",
+      ...(avgResponseMs == null ? {} : { avgResponseMs })
     }
   };
 }

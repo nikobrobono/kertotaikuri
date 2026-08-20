@@ -10,7 +10,10 @@ export const initialProgress = () => ({
   bestStreak: 0,
   completedLevels: [],
   completedTables: [],
-  factStats: {}
+  factStats: {},
+  dailyHistory: {},
+  selectedRewardId: "classic",
+  practiceDays: 0
 });
 
 export function loadProgress(storage = globalThis.localStorage) {
